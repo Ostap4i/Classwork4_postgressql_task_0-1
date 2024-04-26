@@ -1,0 +1,101 @@
+TASK 1
+rop table if exists Departments;
+
+
+create table Departments (
+id serial primary key,
+building int not null check(building between 1 and 5),
+name varchar(100) not null, 
+unique(name)
+);
+
+insert into Departments(building, name) values
+(4, 'surgion'),
+(1, 'psiholgical'),
+(2, 'cardiologicall'),
+(3, 'reanimation');
+
+
+create table Doctors (
+id serial primary key,
+name varchar(255) not null,
+premium int not null check(premium > 0),
+salery INT NOT NULL check(salery > 0)
+);
+
+insert into Doctors()
+TASK 0
+drop table if EXISTS wards;
+drop table if EXISTS Department;
+drop table if EXISTS Doctors;
+drop table if EXISTS DoctorsExaminations;
+drop table if exists Examination;
+
+cREATE TABLE Department (
+id serial PRIMARY key,
+building int not null check(building  BETWEEN 1 and 5),
+name varchar(100) not null,
+unique(name)
+);
+
+CREATE table Wards (
+id serial primary key,
+name varchar(20) not null,
+UNIQUE(name),
+places int not null check(places  > 1),
+departmentld_id int not null references Department(id)
+);
+
+insert into Wards(name, places, departmentld_id) VALUES
+('Josh', 8, 3),
+('Mike', '15', 1),
+('Joe', 10, 2);
+
+insert into Department(building, name) VALUES
+(1, 'Josh'),
+(3, 'Joe '),
+(2, 'Mike');
+
+create table Doctors (
+id serial primary key,
+name varchar(255) not null,
+premium int not null default 1 check(premium > 0),
+salary int not null check(salary > 0),
+surname varchar(255) not null
+);
+
+insert into Doctors(name, surname, salary, premium) values
+('Andriy', "Huk", 500, 50),
+('Bogdan', "Sad", 1100, 20),
+('Dmitro', "Leskiv", 1500, 100);
+
+
+create table DoctorsExaminations (
+id serial primary key,
+ endtime time not null check(endtime > starttime),
+ starttime time not null check(starttime > '08:00:00' and starttime < '18:00:00' ),
+ Doctor_id int not null references Doctors(id),
+ Examination_id int not null references Examinations(id),
+ Ward_id int not null references Wards(id)
+);
+
+insert into  DoctorsExaminations(STARTTIME, endtime, doctor_id, examination_id,Ward_id) values 
+('10 minut', '5 minut ', 5654,9003,3452),
+('15 minut', '10 minut ', 5089,9493,9029),
+('20 minut', '5 minut ', 5004,0007,3838);
+
+
+create table Examination (
+id serial primary key,
+name varchar(100) NOT NULL ,
+unique(name)
+);
+
+insert into Examination(name) value
+("Avaria"),
+("fire"),
+("denjoured anoimall");
+
+
+
+
